@@ -1,0 +1,50 @@
+
+.navbar {
+    background-color: #442815; /* Primary blue color */
+    color: white;
+    padding: 15px; /* Spacing around the navbar content */
+    display: flex;
+    justify-content: space-between; /* Align items across the width */
+    align-items: center; /* Vertically center the content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  /* Logo styles (if any logo or branding is present) */
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase; /* Make text uppercase */
+  }
+  
+  /* Links and navigation items */
+  .navbar-links {
+    list-style-type: none; /* Remove default list styles */
+    display: flex; /* Display links horizontally */
+    gap: 20px; /* Space between links */
+  }
+  
+  .navbar-links a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 1rem;
+    transition: color 0.3s; /* Smooth hover transition */
+  }
+  
+  /* Hover effect for links */
+  .navbar-links a:hover {
+    color: #f1c40f; /* Change to a yellow/gold color on hover */
+  }
+  
+  /* Responsive navbar for mobile devices */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column; /* Stack items vertically */
+      text-align: center;
+    }
+  
+    .navbar-links {
+      flex-direction: column; /* Stack links vertically */
+      gap: 10px; /* Reduce spacing between links */
+    }
+  }
+  
