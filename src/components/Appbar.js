@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,8 +8,8 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import logo from '../images/logo1.png'; 
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import logo from './images/logo1.png'; 
+import { useNavigate } from 'react-router-dom';
 import { MenuItem } from '@mui/material';
 
 const pages = ['Signin', 'Signup', 'Home', 'Contact', 'Admin'];
@@ -18,13 +18,16 @@ function ResponsiveAppBar({ store }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const navigate = useNavigate();
 
+  // Open navigation menu (for mobile view)
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
+  // Handle closing navigation menu and navigating
   const handleCloseNavMenu = (page) => {
-    const pageRoute = `/${page.toLowerCase()}`;
-    navigate(pageRoute);
+    // If Admin is clicked, redirect to /admin-login
+    const route = page === 'Admin' ? '/admin-login' : `/${page.toLowerCase()}`;
+    navigate(route);
     setAnchorElNav(null);
   };
 
@@ -32,7 +35,7 @@ function ResponsiveAppBar({ store }) {
     <AppBar position="static" sx={{ backgroundColor: '#442815', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* Logo for desktop */}
+          {/* Desktop Logo */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <img src={logo} alt="App Logo" style={{ width: '40px', height: '40px' }} />
           </Box>
@@ -52,13 +55,14 @@ function ResponsiveAppBar({ store }) {
               textDecoration: 'none',
             }}
           >
-            LMS 
+            LMS
           </Typography>
 
+          {/* Mobile View - Hamburger Menu */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="navigation menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -94,6 +98,7 @@ function ResponsiveAppBar({ store }) {
             </Menu>
           </Box>
 
+          {/* Desktop View - Navigation Buttons */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button

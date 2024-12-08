@@ -1,46 +1,51 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { TextField, Button, Box, Typography } from '@mui/material';
+import axios from 'axios';
 
 const IssueBook = () => {
   const [bookId, setBookId] = useState('');
   const [userId, setUserId] = useState('');
 
-  const handleIssueBook = () => {
-    // Add logic to issue book (e.g., API call)
-    console.log('Book issued:', { bookId, userId });
-    // Reset fields
-    setBookId('');
-    setUserId('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('adminToken');
+    try {
+      await axios.post(
+        `http://localhost:8080/admin/issue-book`,
+        { bookId, userId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert('Book issued successfully');
+    } catch (error) {
+      console.error('Error issuing book:', error);
+      alert('Failed to issue book');
+    }
   };
 
   return (
-    <Box sx={{ padding: 2, maxWidth: '400px', margin: 'auto' }}> {/* Set a max width and center the form */}
-      <Typography variant="h5" align="center" gutterBottom>
-        Issue Book
-      </Typography>
-      <TextField
-        label="Book ID"
-        value={bookId}
-        onChange={(e) => setBookId(e.target.value)}
-        fullWidth
-        margin="normal"
-        InputProps={{
-          style: { backgroundColor: 'white' } // Set background color to white
-        }}
-      />
-      <TextField
-        label="User ID"
-        value={userId}
-        onChange={(e) => setUserId(e.target.value)}
-        fullWidth
-        margin="normal"
-        InputProps={{
-          style: { backgroundColor: 'white' } // Set background color to white
-        }}
-      />
-      <Button variant="contained" onClick={handleIssueBook} fullWidth>
-        Issue Book
-      </Button>
+    <Box sx={{ p: 2 }}>
+      <Typography variant="h5" gutterBottom>Issue Book</Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Book ID"
+          value={bookId}
+          onChange={(e) => setBookId(e.target.value)}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="User ID"
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Issue
+        </Button>
+      </form>
     </Box>
   );
 };

@@ -1,59 +1,80 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import axios from 'axios';
 
 const UpdateBook = () => {
   const [bookId, setBookId] = useState('');
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
 
-  const handleUpdateBook = () => {
-    // Add logic to update book (e.g., API call)
-    console.log('Book updated:', { bookId, title, author });
-    // Reset fields
-    setBookId('');
-    setTitle('');
-    setAuthor('');
+  const handleUpdate = async () => {
+    try {
+      await axios.put(`http://localhost:8080/admin/update-book/${bookId}`, { title, author });
+      alert("Book updated successfully");
+    } catch (error) {
+      console.error("Error updating book:", error);
+      alert("Failed to update book");
+    }
+  };
+
+  const inputStyle = {
+    width: '300px',
+    height: '40px',
+    fontSize: '16px',
+    margin: '10px 0',
+    padding: '8px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+  };
+
+  const buttonStyle = {
+    width: '320px',
+    height: '45px',
+    fontSize: '16px',
+    backgroundColor: '#28A745',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  };
+
+  const containerStyle = {
+    maxWidth: '400px',
+    margin: '50px auto',
+    textAlign: 'center',
+  };
+
+  const headingStyle = {
+    fontSize: '24px',
+    marginBottom: '20px',
   };
 
   return (
-    <Box sx={{ padding: 2, maxWidth: '400px', margin: 'auto' }}> {/* Set a max width and center the form */}
-      <Typography variant="h5" align="center" gutterBottom>
-        Update Book
-      </Typography>
-      <TextField
-        label="Book ID"
+    <div style={containerStyle}>
+      <h1 style={headingStyle}>Update Book</h1>
+      <input
+        type="text"
+        placeholder="Book ID"
         value={bookId}
         onChange={(e) => setBookId(e.target.value)}
-        fullWidth
-        margin="normal"
-        InputProps={{
-          style: { backgroundColor: 'white' } // Set background color to white
-        }}
+        required
+        style={inputStyle}
       />
-      <TextField
-        label="Book Title"
+      <input
+        type="text"
+        placeholder="New Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        fullWidth
-        margin="normal"
-        InputProps={{
-          style: { backgroundColor: 'white' } // Set background color to white
-        }}
+        style={inputStyle}
       />
-      <TextField
-        label="Author"
+      <input
+        type="text"
+        placeholder="New Author"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
-        fullWidth
-        margin="normal"
-        InputProps={{
-          style: { backgroundColor: 'white' } // Set background color to white
-        }}
+        style={inputStyle}
       />
-      <Button variant="contained" onClick={handleUpdateBook} fullWidth>
-        Update Book
-      </Button>
-    </Box>
+      <button onClick={handleUpdate} style={buttonStyle}>Update Book</button>
+    </div>
   );
 };
 

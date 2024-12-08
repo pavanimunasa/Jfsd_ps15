@@ -23,7 +23,6 @@
   color: white;
 }
 
-
 .App-body {
   position: relative; /* Positioning context for the pseudo-element */
   min-height: 80vh;
@@ -37,7 +36,7 @@
 
 .App-body::before {
   content: "";
-  background-image: url('https://png.pngtree.com/background/20230517/original/pngtree-the-inside-of-a-library-with-lots-of-books-picture-image_2633111.jpg');
+  background-image: url('https://img.freepik.com/free-photo/ancient-books-adorn-library-carefully-arranged-with-classics-rare-gems_157027-2332.jpg'); /* Add your image URL here */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -49,9 +48,6 @@
   height: 120%;
   z-index: -1; /* Place behind the content */
 }
-
-
-
 
 .App-link {
   color: #5a3407;
@@ -65,4 +61,3 @@
     transform: rotate(360deg);
   }
 }
-
